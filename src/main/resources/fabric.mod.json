@@ -1,0 +1,33 @@
+{
+	"schemaVersion": 1,
+	"id": "bapilib",
+	"version": "${version}",
+	"name": "BAPILib",
+	"description": "Bacrian's All-Purpose Integration Library... Yeah, what did you expect? I'm lazy.",
+	"authors": [
+		"Bacrian / @imbacrian"
+	],
+	"contact": {
+		"homepage": "",
+		"sources": ""
+	},
+	"icon": "icon.png",
+	"license": "CC0-1.0",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"imbacrian.bapilib.BAPILib"
+		]
+	},
+	"mixins": [
+		"bapilib.mixins.json"
+	],
+	"depends": {
+		"fabricloader": ">=${fabricloader}",
+		"minecraft": "*",
+		"java": ">=${java}"
+	},
+	"suggests": {
+		"modmenu": ">=${modmenu}"
+	}
+}
