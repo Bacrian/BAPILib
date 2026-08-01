@@ -1,6 +1,6 @@
 package imbacrian.bapilib.util;
 
-import net.minecraft.client.resource.language.I18n;
+import net.minecraft.core.lang.I18n;
 
 public class LangHelper {
 
