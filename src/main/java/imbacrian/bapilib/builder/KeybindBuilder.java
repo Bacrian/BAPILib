@@ -5,7 +5,7 @@ import net.minecraft.client.input.InputDevice;
 import net.minecraft.client.option.GameSettings;
 import net.minecraft.client.option.KeyBinding;
 
-public class keybindBuilder {
+public class KeybindBuilder {
 
     public static KeyBinding registerKey(String translationKey, int defaultKey) {
         return GameSettings.register(
