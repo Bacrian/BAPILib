@@ -36,7 +36,7 @@ public class PlayerDoll {
 		float xRotO = mc.thePlayer.xRotO;
 
 		float eyesX = dollX - mx;
-		float eyesY = dollY - 50 - my;
+		float eyesY = dollY - 75 - my;
 
 		GLRenderer.modelM4f().rotateY(org.joml.Math.toRadians(135.0F));
 		Lighting.enableLight();
@@ -44,8 +44,8 @@ public class PlayerDoll {
 		GLRenderer.modelM4f().rotateY(org.joml.Math.toRadians(-135.0F));
 		GLRenderer.modelM4f().rotateX(org.joml.Math.toRadians(-((float)Math.atan(eyesY / 40.0F)) * 20.0F));
 
-		mc.thePlayer.yBodyRotO = mc.thePlayer.yBodyRot = (float)Math.atan(eyesY / 40.0F) * 20.0F;
-		mc.thePlayer.yRotO = mc.thePlayer.yRot = (float)Math.atan(eyesY / 40.0F) * 20.0F;
+		mc.thePlayer.yBodyRotO = mc.thePlayer.yBodyRot = (float)Math.atan(eyesX / 40.0F) * 20.0F;
+		mc.thePlayer.yRotO = mc.thePlayer.yRot = (float)Math.atan(eyesX / 40.0F) * 40.0F;
 		mc.thePlayer.xRotO = mc.thePlayer.xRot = -((float)Math.atan(eyesY / 40.0F)) * 20.0F;
 
 		GLRenderer.modelM4f().translate(0.0F,mc.thePlayer.heightOffset, 0.0F);
