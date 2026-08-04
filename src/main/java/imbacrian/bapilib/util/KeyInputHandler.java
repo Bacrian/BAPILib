@@ -1,17 +1,9 @@
-package imbacrian.bapilib.builder;
+package imbacrian.bapilib.util;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.input.InputDevice;
-import net.minecraft.client.option.GameSettings;
 import net.minecraft.client.option.KeyBinding;
 
-public class KeybindBuilder {
-
-    public static KeyBinding registerKey(String translationKey, int defaultKey) {
-        return GameSettings.register(
-            new KeyBinding(translationKey).setDefault(InputDevice.keyboard, defaultKey)
-        );
-    }
+public class KeyInputHandler {
 
     //Generic utility method - GUI
     public static void handleKeyInputGUIScreen(Minecraft mc, KeyBinding keyBinding, net.minecraft.client.gui.Screen targetScreen) {
@@ -21,4 +13,8 @@ public class KeybindBuilder {
             }
         }
     }
+
+	// I don't recommend using this, specially since it's for some cases
+	// and not exactly the best way to handle keybinds.
+	// I'd recommend adding the checks manually, looking for whatever you need.
 }

@@ -9,7 +9,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
-public class ConfigHelper {
+public class GenericConfigHelper {
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
 
     /*

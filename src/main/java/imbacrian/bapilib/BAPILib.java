@@ -2,6 +2,8 @@ package imbacrian.bapilib;
 
 import java.util.stream.Collectors;
 
+import imbacrian.bapilib.cmd.GamemodeShort;
+import net.minecraft.core.net.command.CommandManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -17,6 +19,7 @@ public class BAPILib implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
+		CommandManager.registerCommand(new GamemodeShort());
 		CommonEvents.BEFORE_GAME_START.listen(Key.of(MOD_ID), this::beforeGameStart);
 		CommonEvents.AFTER_GAME_START.listen(Key.of(MOD_ID), this::afterGameStart);
 		LOGGER.info("BAPILib initialized.");
@@ -56,6 +59,7 @@ public class BAPILib implements ModInitializer {
 	}
 
 	public void afterGameStart() {
-
+		// Here you can initialize your keybind category helper
+		// by calling the init() method of your file class.
 	}
 }
