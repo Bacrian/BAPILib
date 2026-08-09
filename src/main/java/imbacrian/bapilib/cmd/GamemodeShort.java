@@ -1,14 +1,10 @@
 package imbacrian.bapilib.cmd;
 
-import com.mojang.brigadier.arguments.ArgumentType;
-import net.minecraft.client.entity.player.PlayerLocal;
-import net.minecraft.core.entity.Entity;
 import net.minecraft.core.entity.player.Player;
 import net.minecraft.core.net.command.CommandManager;
 import net.minecraft.core.net.command.arguments.ArgumentTypeEntity;
 import net.minecraft.core.net.command.CommandSource;
 import com.mojang.brigadier.CommandDispatcher;
-import com.mojang.brigadier.arguments.ArgumentTypeString;
 import com.mojang.brigadier.builder.ArgumentBuilderLiteral;
 import com.mojang.brigadier.builder.ArgumentBuilderRequired;
 import net.minecraft.core.net.command.helpers.EntitySelector;
@@ -27,7 +23,7 @@ public final class GamemodeShort implements CommandManager.CommandRegistry {
 					if (senderPlayer != null) {
 						return creativePlayer(source);
 					} else {
-						source.sendMessage("This command can only be executed by a player via implicit sender.");
+						source.sendMessage("This command can only be executed via implicit sender by a player.");
 						return 0;
 					}
 				})
@@ -43,7 +39,7 @@ public final class GamemodeShort implements CommandManager.CommandRegistry {
 					if (senderPlayer != null) {
 						return survivalPlayer(source);
 					} else {
-						source.sendMessage("This command can only be executed by a player via implicit sender.");
+						source.sendMessage("This command can only be executed via implicit sender by a player.");
 						return 0;
 					}
 				})
@@ -59,7 +55,7 @@ public final class GamemodeShort implements CommandManager.CommandRegistry {
 					if (senderPlayer != null) {
 						return adventurePlayer(source);
 					} else {
-						source.sendMessage("This command can only be executed by a player via implicit sender.");
+						source.sendMessage("This command can only be executed via implicit sender by a player.");
 						return 0;
 					}
 				})
@@ -75,7 +71,7 @@ public final class GamemodeShort implements CommandManager.CommandRegistry {
 					if (senderPlayer != null) {
 						return spectatorPlayer(source);
 					} else {
-						source.sendMessage("This command can only be executed by a player via implicit sender.");
+						source.sendMessage("This command can only be executed via implicit sender by a player.");
 						return 0;
 					}
 				})
