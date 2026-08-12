@@ -1,12 +1,11 @@
 package imbacrian.bapilib.render;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.render.EntityRendererDispatcher;
+import net.minecraft.client.render.EntityRenderDispatcher;
 import net.minecraft.client.render.Lighting;
 import net.minecraft.client.render.entity.EntityRenderer;
-import net.minecraft.client.render.renderer.GLRenderer;
-import net.minecraft.client.render.renderer.Shaders;
-import net.minecraft.client.render.renderer.State;
+import net.minecraft.client.render.tessellator.Tessellator;
+import org.lwjgl.opengl.GL11;
 
 public class PlayerDoll {
 	/*
@@ -18,15 +17,16 @@ public class PlayerDoll {
             return;
         }
 
-		GLRenderer.pushFrame();
-		GLRenderer.setShader(Shaders.WORLD);
-		GLRenderer.getFogState().disable();
-		GLRenderer.enableState(State.DEPTH_TEST);
-		GLRenderer.modelM4f().translate(dollX,dollY,50.0F);
+		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+		GL11.glEnable(32826); // GL_RESCALE_NORMAL
+		GL11.glEnable(2903);  // GL_COLOR_MATERIAL
+		GL11.glEnable(2929);  // GL_DEPTH_TEST
+		GL11.glPushMatrix();
+		GL11.glTranslatef(dollX, dollY, 50.0F);
 
 		float scale = size;
-		GLRenderer.modelM4f().scale(-scale,scale,scale);
-		GLRenderer.modelM4f().rotateZ(org.joml.Math.toRadians(180.0F));
+		GL11.glScalef(-scale, scale, scale);
+		GL11.glRotatef(180.0F, 0.0F, 0.0F, 1.0F);
 
 		float yBodyRot = mc.thePlayer.yBodyRot;
 		float yBodyRotO = mc.thePlayer.yBodyRotO;
@@ -38,23 +38,24 @@ public class PlayerDoll {
 		float eyesX = dollX - mx;
 		float eyesY = dollY - 75 - my;
 
-		GLRenderer.modelM4f().rotateY(org.joml.Math.toRadians(135.0F));
+		GL11.glRotatef(135.0F, 0.0F, 1.0F, 0.0F);
 		Lighting.enableLight();
-		GLRenderer.setLightMapStrength(0.0F);
-		GLRenderer.modelM4f().rotateY(org.joml.Math.toRadians(-135.0F));
-		GLRenderer.modelM4f().rotateX(org.joml.Math.toRadians(-((float)Math.atan(eyesY / 40.0F)) * 20.0F));
+		GL11.glRotatef(-135.0F, 0.0F, 1.0F, 0.0F);
+		GL11.glRotatef(-((float) Math.atan(eyesY / 40.0F)) * 20.0F, 1.0F, 0.0F, 0.0F);
 
-		mc.thePlayer.yBodyRotO = mc.thePlayer.yBodyRot = (float)Math.atan(eyesX / 40.0F) * 20.0F;
-		mc.thePlayer.yRotO = mc.thePlayer.yRot = (float)Math.atan(eyesX / 40.0F) * 40.0F;
-		mc.thePlayer.xRotO = mc.thePlayer.xRot = -((float)Math.atan(eyesY / 40.0F)) * 20.0F;
+		mc.thePlayer.yBodyRotO = mc.thePlayer.yBodyRot = (float) Math.atan(eyesX / 40.0F) * 20.0F;
+		mc.thePlayer.yRotO = mc.thePlayer.yRot = (float) Math.atan(eyesX / 40.0F) * 40.0F;
+		mc.thePlayer.xRotO = mc.thePlayer.xRot = -((float) Math.atan(eyesY / 40.0F)) * 20.0F;
 
-		GLRenderer.modelM4f().translate(0.0F,mc.thePlayer.heightOffset, 0.0F);
+		GL11.glTranslatef(0.0F, mc.thePlayer.heightOffset, 0.0F);
+
+		EntityRenderDispatcher.instance.viewLerpYaw = 180.0F;
 		EntityRenderer.renderShadows = false;
-		GLRenderer.globalGetNormalTransformMatrix().scale(1.0F, -1.0F, 1.0F);
-		GLRenderer.setLightmapCoord2i(15, 15);
+		mc.thePlayer.entityBrightness = 1.0F; // equivalente 7.3 a GLRenderer.setLightmapCoord2i(15,15)
 
-		EntityRendererDispatcher.instance.renderEntityPreviewWithPosYaw(GLRenderer.getTessellator(), mc.thePlayer, 0.0, 0.0, 0.0, 0.0F, partialTick);
+		EntityRenderDispatcher.instance.renderEntityWithPosYaw(Tessellator.instance, mc.thePlayer, 0.0, 0.0, 0.0, 0.0F, partialTick);
 
+		mc.thePlayer.entityBrightness = 0.0F;
 		EntityRenderer.renderShadows = true;
 		mc.thePlayer.yBodyRot = yBodyRot;
 		mc.thePlayer.yBodyRotO = yBodyRotO;
@@ -63,7 +64,8 @@ public class PlayerDoll {
 		mc.thePlayer.xRot = xRot;
 		mc.thePlayer.xRotO = xRotO;
 
-		GLRenderer.popFrame();
+		GL11.glPopMatrix();
 		Lighting.disable();
-	}
+		GL11.glDisable(32826);
+    }
 }

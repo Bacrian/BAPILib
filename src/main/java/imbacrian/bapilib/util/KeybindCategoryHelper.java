@@ -10,10 +10,11 @@ import org.lwjgl.input.Keyboard;
 
 public class KeybindCategoryHelper {
 
+	// PORT NOTE (BTA 7.3): no existe GameSettings.register(KeyBinding) en esta versión.
+	// El constructor de KeyBinding ya se auto-registra en GameSettings.keys, así que
+	// simplemente se construye y se devuelve.
 	public KeyBinding registerKey(String translationKey, int defaultKey) {
-		return GameSettings.register(
-			new KeyBinding(translationKey).setDefault(InputDevice.keyboard, defaultKey)
-		);
+		return new KeyBinding(translationKey).setDefault(InputDevice.keyboard, defaultKey);
 	}
 
 	private static boolean addedCustomCategory = false;

@@ -14,7 +14,7 @@ public class ItemModelMetadata extends ItemModelStandard {
 	private final IconCoordinate[] icons;
 
 	public ItemModelMetadata(@NotNull Item item, int metadataCount) {
-		super(item, false);
+		super(item, "namespace");
 		this.icons = new IconCoordinate[metadataCount];
 	}
 

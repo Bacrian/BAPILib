@@ -3,7 +3,7 @@
 	"id": "bapilib",
 	"version": "${version}",
 	"name": "BAPILib",
-	"description": "Bacrian's All-Purpose Integration Library... Yeah, what did you expect? I'm lazy.",
+	"description": "Bacrian's All-Purpose Integration Library... Yeah, what did you expect? I'm lazy. BTA 7.3 Port. Expect missing functions.",
 	"authors": [
 		"Bacrian / @imbacrian"
 	],
@@ -16,6 +16,12 @@
 	"environment": "*",
 	"entrypoints": {
 		"main": [
+			"imbacrian.bapilib.BAPILib"
+		],
+		"beforeGameStart": [
+			"imbacrian.bapilib.BAPILib"
+		],
+		"afterGameStart": [
 			"imbacrian.bapilib.BAPILib"
 		]
 	},

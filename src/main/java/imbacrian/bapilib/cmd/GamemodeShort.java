@@ -8,7 +8,7 @@ import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.builder.ArgumentBuilderLiteral;
 import com.mojang.brigadier.builder.ArgumentBuilderRequired;
 import net.minecraft.core.net.command.helpers.EntitySelector;
-import net.minecraft.core.player.gamemode.Gamemodes;
+import net.minecraft.core.player.gamemode.Gamemode;
 
 public final class GamemodeShort implements CommandManager.CommandRegistry {
 	@Override
@@ -81,25 +81,25 @@ public final class GamemodeShort implements CommandManager.CommandRegistry {
 	private int creativePlayer(CommandSource source) {
 		Player player = source.getSender();
 
-		player.setGamemode(Gamemodes.CREATIVE);
+		player.setGamemode(Gamemode.creative);
 		return 0;
 	}
 	private int survivalPlayer(CommandSource source) {
 		Player player = source.getSender();
 
-		player.setGamemode(Gamemodes.SURVIVAL);
+		player.setGamemode(Gamemode.survival);
 		return 1;
 	}
 	private int adventurePlayer(CommandSource source) {
 		Player player = source.getSender();
 
-		player.setGamemode(Gamemodes.ADVENTURE);
+		player.setGamemode(Gamemode.adventure);
 		return 1;
 	}
 	private int spectatorPlayer(CommandSource source) {
 		Player player = source.getSender();
 
-		player.setGamemode(Gamemodes.SPECTATOR);
+		player.setGamemode(Gamemode.spectator);
 		return 1;
 	}
 }

@@ -16,7 +16,6 @@ public class EntitySyncHelper {
 		if (entity == null || server == null) return;
 
 		try {
-			entity.additionalDataChanged = true;
 			entity.sendAdditionalData = true;
 
 			int dimensionId = entity.world.dimension.id;
