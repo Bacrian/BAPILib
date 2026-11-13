@@ -1,6 +1,6 @@
 plugins {
 	alias(libs.plugins.loom)
-	java
+    java
 }
 
 val lwjglNatives = resolveLwjglNatives()
@@ -17,27 +17,27 @@ version = modVersion
 loom {
 	val btaChannel = libs.versions.btaChannel.get()
 	val btaVersion = (if (btaChannel == "nightly") "" else "v") + libs.versions.bta.get()
-	customMinecraftMetadata.set("https://downloads.betterthanadventure.net/bta-client/${btaChannel}/$btaVersion/manifest.json")
+    customMinecraftMetadata.set("https://downloads.betterthanadventure.net/bta-client/${btaChannel}/$btaVersion/manifest.json")
 }
 repositories {
-	mavenCentral()
-	maven("https://maven.fabricmc.net/") { name = "Fabric" }
-	maven("https://maven.thesignalumproject.net/infrastructure") { name = "SignalumMavenInfrastructure" }
-	maven("https://maven.thesignalumproject.net/releases") { name = "SignalumMavenReleases" }
+    mavenCentral()
+    maven("https://maven.fabricmc.net/") { name = "Fabric" }
+	maven("https://maven.danygames2014.net/signalum") { name = "SignalumMavenMirror1" }
+    maven("https://maven.thesignalumproject.net/infrastructure") { name = "SignalumMavenInfrastructure" }
+    maven("https://maven.thesignalumproject.net/releases") { name = "SignalumMavenReleases" }
 	maven("https://maven.thesignalumproject.net/nightly") { name = "SignalumMavenNightly" }
-	ivy("https://piston-data.mojang.com") {
-		patternLayout { artifact("v1/[organisation]/[revision]/[module].jar") }
-		metadataSources { artifact() }
-	}
+    ivy("https://piston-data.mojang.com") {
+        patternLayout { artifact("v1/[organisation]/[revision]/[module].jar") }
+        metadataSources { artifact() }
+    }
 }
 dependencies {
-	minecraft("::${libs.versions.bta.get()}")
+    minecraft("::${libs.versions.bta.get()}")
 
 	// Required at compilation & runtime
 	// included in builds as a runtime dependency
 	implementation(libs.loader)
 	implementation(libs.halplibe) // If you do not need halplibe you can delete this line
-
 
 	// Only required at compilation
 	// provides documentation, can be removed if that isn't needed
@@ -92,7 +92,7 @@ tasks {
 		if (javaVersion.get() > 8) options.release = javaVersion
 	}
 	withType<UpdateDaemonJvm>().configureEach {
-	languageVersion = libs.versions.gradleJava.map { JavaLanguageVersion.of(it.toInt()) }
+		languageVersion = libs.versions.gradleJava.map { JavaLanguageVersion.of(it.toInt()) }
 		vendor = JvmVendorSpec.ADOPTIUM
 	}
 	withType<JavaExec>().configureEach { defaultCharacterEncoding = "UTF-8" }
@@ -111,20 +111,19 @@ tasks {
 			"fabricloader" to libs.versions.loader.get(),
 			"halplibe" to libs.versions.halplibe.get(),
 			"java" to libs.versions.java.get(),
-			"modmenu" to libs.versions.modMenu.get()
+			"modmenu" to libs.versions.modMenu.get(),
+			"JAVA" to libs.versions.java.get()
 		)
 		// This is needed for gradle to recognize changes
 		// made to expanded files
 		inputs.properties(resourceMap)
 
-		duplicatesStrategy = DuplicatesStrategy.INCLUDE
-		with(copySpec {
-			from("src/main/resources/") {
-				include("fabric.mod.json")
-				include("*.mixins.json")
-				expand(resourceMap)
-			}
-		})
+		filesMatching(listOf(
+			"fabric.mod.json",
+			"*.mixins.json"
+		)) {
+			expand(resourceMap)
+		}
 	}
 }
 // Removes all outdated manifest.json dependencies
@@ -156,6 +155,26 @@ fun resolveLwjglNatives(): String { // Sourced from https://www.lwjgl.org/
 					"natives-windows-x86"
 			else ->
 				throw Error("Unrecognized or unsupported platform. Please set \"lwjglNatives\" manually")
+		}
+	}
+}
+sourceSets {
+	main {
+		java {
+			setSrcDirs(
+				listOf(
+					"api/src/main/java",
+					"core/src/main/java",
+					"client/src/main/java",
+					"network/src/main/java"
+				)
+			)
+		}
+
+		resources {
+			setSrcDirs(
+				listOf("core/src/main/resources")
+			)
 		}
 	}
 }

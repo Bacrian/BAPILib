@@ -9,8 +9,14 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
+@Deprecated(since = "1.0.2", forRemoval = true)
 public class GenericConfigHelper {
-    private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
+
+	/**
+	 * Getting replaced by the default TOML config because this thing basically just wraps GSON. Served zero purpose. I kinda regret spending time on this one.
+	 */
+
+	private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
 
     /*
      * Loads a JSON config file. If it doesn't exist, it creates a new one by default.
